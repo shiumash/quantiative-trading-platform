@@ -1,0 +1,22 @@
+{
+  "name": "@quant/database-client",
+  "version": "1.0.0",
+  "description": "Database client for quant infrastructure",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@quant/shared-types": "workspace:*",
+    "@quant/shared-utils": "workspace:*",
+    "pg": "^8.11.0",
+    "redis": "^4.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/pg": "^8.10.0"
+  }
+}

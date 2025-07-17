@@ -1,0 +1,54 @@
+# Development environment with all required services
+version: '3.8'
+
+services:
+  # PostgreSQL with TimescaleDB extension
+  postgres:
+    image: timescale/timescaledb:latest-pg15
+    container_name: quant-postgres
+    environment:
+      POSTGRES_DB: quant_dev
+      POSTGRES_USER: quant_user
+      POSTGRES_PASSWORD: quant_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/sql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quant_user -d quant_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching and message queue
+  redis:
+    image: redis:7-alpine
+    container_name: quant-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Adminer for database management (optional)
+  adminer:
+    image: adminer
+    container_name: quant-adminer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+
+  # Python services will connect to these databases
+  # Go service will connect to these databases  
+  # TypeScript API Gateway will connect to these databases
+  # All running locally, all connecting to localhost:5432 and localhost:6379
+
+volumes:
+  postgres_data:
+  redis_data:
