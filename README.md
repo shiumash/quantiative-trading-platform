@@ -14,11 +14,9 @@ A containerized microservices platform designed to support quantitative trading 
 
 ### Technical Features
 - **Microservices Architecture** - Independent, scalable services
-- **Multi-language Stack** - Right tool for the right job
 - **Event-driven Communication** - Async messaging between services
 - **Comprehensive Caching** - Redis for performance optimization
 - **Time-series Optimization** - TimescaleDB for efficient market data storage
-- **Interactive API Documentation** - Auto-generated with FastAPI
 - **Container-first Development** - Docker for consistent environments
 
 ## 🛠️ Technology Stack
